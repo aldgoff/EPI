@@ -46,11 +46,11 @@ public:
 class ByteLookup : public Strategy {};
 
 void demo() {
-	long tests[] = { 5, 10, 0xFF, 0x7FFF0000L };
+	unsigned tests[] = { 5, 10, 0xFF, 0x7FFF0000L };
 	Strategy* poly[] = { new BitWise, new ByteLookup };
-	for(size_t j=0; j<sizeof(tests)/sizeof(*tests); j++) {
-		for(size_t i=0; i<sizeof(poly)/sizeof(*poly); i++) {
-			printf("%08X - %08X\n", (unsigned)tests[j], (unsigned)poly[i]->bits(tests[j]));
+	for(size_t j=0; j<COUNT(tests); j++) {
+		for(size_t i=0; i<COUNT(poly); i++) {
+			printf("%08X - %08X\n", tests[j], (unsigned)poly[i]->bits(tests[j]));
 		}
 		cout << endl;
 	}
