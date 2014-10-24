@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 	cout << argv[0] << "\n\n";		// Where the executable is located.
 
 	if(argc == 1) {					// What commands EPI understands.
-		cout << "  No args.\n" << endl;
+		cout << "  No args, so here is the list of them.\n" << endl;
 		meta("");
 	}
 
