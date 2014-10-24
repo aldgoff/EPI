@@ -2,8 +2,19 @@
 // Name        : EPI.cpp
 // Author      : Allan Goff
 // Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Copyright   : Novatia Labs 2014
+// Description : Study for SWE interviews following "Elements of Programming Interviews" (EPI).
+//============================================================================
+
+/* File structure
+ * A main program (EPI.cpp) that executes individual interview questions via command line.
+ * No args produces list of arguments understood by program.
+ * (And a list of include files, to simplify the seam points of adding more interview questions.)
+ * The files meta.h/cpp contain the basic control logic, a Strategy design pattern;
+ * the base class is EPI.
+ * Each of the header files uses namespaces and the Strategy pattern to highlight
+ * testing and iterative refinement.
+ */
 //============================================================================
 
 #include <cstdio>

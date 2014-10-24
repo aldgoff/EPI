@@ -8,6 +8,56 @@
 #ifndef META_H_
 #define META_H_
 
+#ifdef FileStructure
+
+EPI.h
+#define COUNT(x) (sizeof(x)/sizeof(*x))
+class EPI {};
+
+EPI.cpp	// main()
+#include "meta.h"
+
+meta.h
+#include "EPI.h"
+void meta(const string& arg);
+
+meta.cpp
+#include "interviews.h"	// Contains source code, can only be included in one file.
+#include "meta.h"
+void meta(const string& arg) {
+	EPI* routines[] = {
+		new interview1,
+		new interview2,
+		// Seam point - so program can respond to arg.
+	};
+	//...
+}
+
+interviews.h
+#include "interview1.h"
+#include "interview2.h"
+// Seam point - so program knows of the interview classes.
+
+interview1.h
+#include "EPI.h"
+namespace interview1 {
+class Strategy {};
+class S1 : public Strategy {};
+class S2 : public Strategy {};
+void demo() {
+	// Run through 2D matrix: test cases versus strategies.
+}
+}
+class interview1_S1 : public EPI {
+public: void run() { interview1::demo(); }
+};
+
+interview2.h
+// Ditto.
+
+// Seam point - a new file for each interview question.
+
+#endif
 
 void meta(const string& arg);
 
