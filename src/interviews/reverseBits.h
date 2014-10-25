@@ -20,27 +20,38 @@ namespace reverse_bits {
 class Strategy {
 public:
 	virtual ~Strategy() {}
-	virtual long bits(const long& x) {
+	virtual long algorithm(const long& x) {
 		return x;
+	}
+};
+class Incremental : public Strategy {
+public:
+	long algorithm(const long& x) {
+		long reversed = 0;
+		unsigned long leftMask = (1L << (8*sizeof(x)-1));
+		unsigned long rightMask = 1;
+		for(int dist=8*sizeof(x)-1; dist>0; dist-=2) {
+			printf("%016lX(%2d) ", (unsigned long)(leftMask | rightMask), dist);
+			leftMask >>= 1;
+			rightMask <<= 1;
+		}
+		return reversed;
 	}
 };
 class BitWise : public Strategy {
 public:
-	long bits(const long& x) {
+	long algorithm(const long& x) {
 		long reversed = 0;
-		short leftIndex = 8*sizeof(x)-1;
-		short rightIndex = 0;
-		short dist = leftIndex - rightIndex;
-		while((dist = leftIndex - rightIndex) > 0) {
-			unsigned leftMask = 1 << leftIndex;
-			unsigned leftValue = x & leftMask;
-			unsigned rightMask = 1 << rightIndex;
-			unsigned rightValue = x & rightMask;
-//			printf("%08X(%2d) ", (unsigned)(leftMask | rightMask), dist);
-			leftIndex--;
-			rightIndex++;
+		short dist = 8*sizeof(x) - 1;
+		unsigned long leftMask = (1L << dist);
+		unsigned long rightMask = 1;
+		for(; dist>0; dist-=2) {
+			unsigned long leftValue = x & leftMask;
+			unsigned long rightValue = x & rightMask;
 			reversed |= (leftValue >> dist);
 			reversed |= (rightValue << dist);
+			leftMask >>= 1;
+			rightMask <<= 1;
 		}
 		return reversed;
 	}
@@ -50,11 +61,11 @@ class ByteLookup : public Strategy {
 };
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
-	unsigned tests[] = { 5, 10, 0xFF, 0x7FFF0000L };
-	Strategy* poly[] = { new BitWise, new ByteLookup };
+	unsigned long tests[] = { 5, 10, 0xFF, 0xFFFF0000 , 0x7FFFAAAA00000000 };
+	Strategy* poly[] = { new Incremental, new BitWise, new ByteLookup };
 	for(size_t j=0; j<COUNT(tests); j++) {
 		for(size_t i=0; i<COUNT(poly); i++) {
-			printf("%08X - %08X\n", tests[j], (unsigned)poly[i]->bits(tests[j]));
+			printf("%016lX - %016lX\n", tests[j], (unsigned long)poly[i]->algorithm(tests[j]));
 		}
 		cout << endl;
 	}
