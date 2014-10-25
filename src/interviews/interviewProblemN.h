@@ -35,10 +35,10 @@ void demo() {	// Run through 2D matrix: test cases versus strategies.
 	unsigned tests[] = { 1, 2 };
 	Strategy* poly[] = { new S1, new S2 };
 	for(size_t j=0; j<COUNT(tests); j++) {
+		cout << "\nData " << j+1 << endl;
 		for(size_t i=0; i<COUNT(poly); i++) {
 			poly[i]->algorithm();
 		}
-		cout << endl;
 	}
 }
 
