@@ -15,7 +15,7 @@ using namespace std;
 
 #include "../EPI.h"
 
-namespace interview_problem_n {
+namespace interview_problem_N {
 
 class Strategy {
 public:
@@ -50,7 +50,7 @@ public:
 public:
 	void run(int i) {
 		cout << "Interview problem " << i << ": " << name << ".\n";
-		interview_problem_n::demo();
+		interview_problem_N::demo();
 	}
 };
 
