@@ -144,7 +144,7 @@ public:
 		unsigned long reverse = 0;
 		short dist = 8*(sizeof(x)-1);
 		unsigned long mask = 0xFF << dist;
-		for(int i=0; i<sizeof(x); i++) {
+		for(size_t i=0; i<sizeof(x); i++) {
 //			printf("%2d - %016lX\n", dist-8*i, mask);
 			reverse |= ((unsigned long)table[(x & mask) >> (dist-8*i)] << 8*i);
 			mask >>= 8;

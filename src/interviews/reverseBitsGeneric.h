@@ -56,7 +56,7 @@ public:
 public:
 	virtual ~Strategy() {}
 	virtual T algorithm(const T& arg) {
-		printf("%lu.\n", sizeof(arg));
+		cout << arg << endl;
 		return arg;
 	}
 };
@@ -73,7 +73,7 @@ public:
 		T reverse = 0;
 		short dist = 8*(sizeof(x)-1);
 		T mask = 0xFF << dist;
-		for(int i=0; i<sizeof(x); i++) {
+		for(size_t i=0; i<sizeof(x); i++) {
 			reverse |= ((T)lookup[(x & mask) >> (dist-8*i)] << 8*i);
 			mask >>= 8;
 		}
@@ -87,7 +87,7 @@ public:
 		T reverse = 0;
 		short dist = 8*(sizeof(x)-1);
 		T mask = 0xFF << dist;
-		for(int i=0; i<sizeof(x); i++) {
+		for(size_t i=0; i<sizeof(x); i++) {
 			reverse |= ((T)lookup[(x & mask) >> (dist-8*i)] << 8*i);
 			mask >>= 8;
 		}
@@ -131,7 +131,9 @@ void demo() {	// Run through 2D matrix: test cases versus strategies.
 		}
 	}
 	{
-		long tests[] = { 0x7F00, 0xF5FF00A0, 0x7FFFAAAA00FE0000 };
+		long tests[] = { 0x7F00, 0xF5FF00A0, 0x7FFFAAAA };
+		if(sizeof(long) == 8)
+			tests[2] = 0x7FFFAAAA00FE0000;
 		for(size_t j=0; j<COUNT(tests); j++) {
 		Strategy<unsigned long>* poly[] = { new S1<unsigned long>, new S2<unsigned long> };
 			for(size_t i=0; i<COUNT(poly); i++) {
