@@ -10,6 +10,7 @@
 
 
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 using namespace std;
 
@@ -25,26 +26,19 @@ public:
 //	static unsigned char table[256];
 private:
 	unsigned char reverseByte(unsigned char byte) {
-		static char table2x2[] = {
+		static char table[] = {
 			0,	// 00b => 00b.
 			2,	// 01b => 10b.
 			1,	// 10b => 01b.
 			3	// 11b => 11b.
 		};
-		return (table2x2[(byte&0xC0) >> 6] << 0)
-		     | (table2x2[(byte&0x30) >> 4] << 2)
-		     | (table2x2[(byte&0x0C) >> 2] << 4)
-		     | (table2x2[(byte&0x03) >> 0] << 6);	// 0x05 <=> 0xA0.
+		return (table[(byte >> 6) & 0x03] << 0)
+		     | (table[(byte >> 4) & 0x03] << 2)
+		     | (table[(byte >> 2) & 0x03] << 4)
+		     | (table[(byte >> 0) & 0x03] << 6);	// 0x05 <=> 0xA0.
 	}
 public:
 	Strategy() {
-//		if(table[1] != 0x80) { // Fill table for first time.
-//			cout << "Fill Strategy<T> byte lookup table for first time for words of size " << sizeof(T) << " bytes.\n";
-//			for(int i=0; i<256; i++) {
-//				table[i] = reverseByte(i);
-////				printf("%02X = %02X\n", i, table[i]);
-//			}
-//		}
 		if(lookup[1] != 0x80) { // Fill table for first time.
 			cout << "Fill byte lookup table for first time.\n";
 			for(int i=0; i<256; i++) {
@@ -132,12 +126,17 @@ void demo() {	// Run through 2D matrix: test cases versus strategies.
 	}
 	{
 		long tests[] = { 0x7F00, 0xF5FF00A0, 0x7FFFAAAA };
-		if(sizeof(long) == 8)
+		char format[] = "%016lX - %016lX\n";
+		if(sizeof(long) == 8) {
 			tests[2] = 0x7FFFAAAA00FE0000;
+			}
+		else {
+			strcpy(format, "  %08X - %08X\n");
+		}
 		for(size_t j=0; j<COUNT(tests); j++) {
 		Strategy<unsigned long>* poly[] = { new S1<unsigned long>, new S2<unsigned long> };
 			for(size_t i=0; i<COUNT(poly); i++) {
-				printf("%016lX - %016lX\n", tests[j], poly[i]->algorithm(tests[j]));
+				printf(format, tests[j], poly[i]->algorithm(tests[j]));
 			}
 //			cout << endl;
 		}
