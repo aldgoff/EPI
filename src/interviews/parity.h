@@ -46,10 +46,27 @@ public:
 		return parity;
 	}
 };
+class S3 : public Strategy {
+public:
+	bool algorithm(unsigned test) { // Table lookup (single hex digit).
+		bool table[] = {
+			false, true, true, false, // 0, 1, 2, 3,
+			true, false, false, true, // 4, 5, 6, 7,
+			true, false, false, true, // 8, 9, A, B,
+			false, true, true, false, // C, D, E, F.
+		};
+		bool parity = false;
+		for(size_t i=0; i<sizeof(test)<<3; i+=4) {
+			if(table[(test >> i) & 0x0F])
+				parity = !parity;
+		}
+		return parity;
+	}
+};
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
 	unsigned tests[] = { 1, 2, 7, 0xFF };
-	Strategy* poly[] = { new S1, new S2 };
+	Strategy* poly[] = { new S1, new S2, new S3 };
 	for(size_t j=0; j<COUNT(tests); j++) {
 		cout << "\nData " << tests[j] << endl;
 		for(size_t i=0; i<COUNT(poly); i++) {
