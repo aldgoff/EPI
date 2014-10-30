@@ -20,12 +20,11 @@ namespace parity_compute {
 class Strategy {
 public:
 	virtual ~Strategy() {}
-	virtual unsigned algorithm(unsigned test) { return 0; }
+	virtual bool algorithm(unsigned test) { return false; }
 };
 class S1 : public Strategy {
 public:
-	unsigned algorithm(unsigned test) { // Brute force solution.
-		cout << "Strategy 1 of parity interview problem.\n";
+	bool algorithm(unsigned test) { // Brute force solution.
 		short len = 8*sizeof(test);
 		unsigned char mask = 0x01;
 		short count = 0;
@@ -38,9 +37,13 @@ public:
 };
 class S2 : public Strategy {
 public:
-	unsigned algorithm(unsigned test) {
-		cout << "Strategy 2 of parity interview problem.\n";
-		return 0;
+	bool algorithm(unsigned test) { // Efficiency & succinctness improvements.
+		bool parity = false;
+		for(size_t i=0; i<8*sizeof(test); i++) {
+			if((test >> i) & 0x01)
+				parity = !parity;
+		}
+		return parity;
 	}
 };
 
