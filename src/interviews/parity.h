@@ -73,12 +73,25 @@ const bool Strategy::table[] = {
 };
 class S4 : public Strategy {
 public:
-	bool algorithm(unsigned test) { // Optimize Hex table lookup.
+	bool algorithm(unsigned test) { // Optimize hex table lookup.
 		bool parity = false;
 		for(size_t i=0; i<sizeof(test)<<3; i+=8) {
-			if(table[(test >> i)   & 0x0F]
+			if(table[(test >> i)    & 0x0F]
 			^ table[(test >> (i+4)) & 0x0F])
 				parity = !parity;
+		}
+		return parity;
+	}
+};
+class S5 : public Strategy {
+public:
+	bool algorithm(unsigned test) { // Optimize hex table lookup some more.
+		bool parity = false;
+		for(size_t i=0; i<sizeof(test); i++) {
+			if(table[test     & 0x0F]
+			^ table[(test>>4) & 0x0F])
+				parity = !parity;
+			test >>= 8;
 		}
 		return parity;
 	}
@@ -86,7 +99,7 @@ public:
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
 	unsigned tests[] = { 1, 2, 7, 0xFF };
-	Strategy* poly[] = { new S1, new S2, new S3, new S4 };
+	Strategy* poly[] = { new S1, new S2, new S3, new S4, new S5 };
 	for(size_t j=0; j<COUNT(tests); j++) {
 		cout << "\nData " << tests[j] << endl;
 		for(size_t i=0; i<COUNT(poly); i++) {
