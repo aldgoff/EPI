@@ -10,6 +10,7 @@ using namespace std;
 
 #include "interviews/reverseBits.h"
 #include "interviews/reverseBitsGeneric.h"
+#include "interviews/parity.h"
 #include "interviews/interviewProblemN.h"
 // Seam point - so program knows of the interview classes.
 
@@ -17,6 +18,7 @@ void meta(const string& arg) {
 	EPI* routines[] = {
 		new reverseBits,
 		new reverseBitsGeneric,
+		new parity,
 		new interviewProblemN,
 		// Seam point - so program can respond to arg.
 	};
