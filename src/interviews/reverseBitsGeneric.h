@@ -10,6 +10,7 @@
 
 
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 using namespace std;
 
@@ -22,16 +23,16 @@ static unsigned char lookup[256] = {0};
 class LookUp {	// Doesn't seem to avoid memory allocation of 256 byte table.
 	static unsigned char table[256];
 	unsigned char reverseByte(unsigned char byte) {
-		static char table2x2[] = {
+		static char table[] = {
 			0,	// 00b => 00b.
 			2,	// 01b => 10b.
 			1,	// 10b => 01b.
 			3	// 11b => 11b.
 		};
-		return (table2x2[(byte&0xC0) >> 6] << 0)
-		     | (table2x2[(byte&0x30) >> 4] << 2)
-		     | (table2x2[(byte&0x0C) >> 2] << 4)
-		     | (table2x2[(byte&0x03) >> 0] << 6);	// 0x05 <=> 0xA0.
+		return (table[(byte >> 6) & 0x03] << 0)
+		     | (table[(byte >> 4) & 0x03] << 2)
+		     | (table[(byte >> 2) & 0x03] << 4)
+		     | (table[(byte >> 0) & 0x03] << 6);	// 0x05 <=> 0xA0.
 	}
 public:
 	LookUp() {
@@ -73,7 +74,7 @@ public:
 public:
 	virtual ~Strategy() {}
 	virtual T algorithm(const T& arg) {
-		printf("%lu.\n", sizeof(arg));
+//		cout << arg << endl;
 		return arg;
 	}
 };
@@ -87,8 +88,8 @@ public:
 		T reverse = 0;
 		short dist = 8*(sizeof(x)-1);
 		T mask = 0xFF << dist;
-		for(int i=0; i<sizeof(x); i++) {
-			reverse |= ((T)lookup[(unsigned char)((x & mask) >> (dist-8*i))] << 8*i);
+		for(size_t i=0; i<sizeof(x); i++) {
+			reverse |= ((T)lookup[(x & mask) >> (dist-8*i)] << 8*i);
 			mask >>= 8;
 		}
 		return reverse;
@@ -101,8 +102,8 @@ public:
 		T reverse = 0;
 		short dist = 8*(sizeof(x)-1);
 		T mask = 0xFF << dist;
-		for(int i=0; i<sizeof(x); i++) {
-			reverse |= ((T)lookup[(unsigned char)((x & mask) >> (dist-8*i))] << 8*i);
+		for(size_t i=0; i<sizeof(x); i++) {
+			reverse |= ((T)lookup[(x & mask) >> (dist-8*i)] << 8*i);
 			mask >>= 8;
 		}
 		return reverse;
@@ -122,6 +123,8 @@ public:
 		return lookup[(unsigned char)x];
 	}
 };
+#ifdef debug
+#endif
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
 	{
@@ -152,11 +155,18 @@ void demo() {	// Run through 2D matrix: test cases versus strategies.
 		}
 	}
 	{
-		long tests[] = { 0x7F00, 0xF5FF00A0, 0x7FFFAAAA00FE0000 };
+		long tests[] = { 0x7F00, 0xF5FF00A0, 0x7FFFAAAA };
+		char format[] = "%016lX - %016lX\n";
+		if(sizeof(long) == 8) {
+			tests[2] = 0x7FFFAAAA00FE0000;
+			}
+		else {
+			strcpy(format, "  %08X - %08X\n");
+		}
 		Strategy<unsigned long>* poly[] = { new S1<unsigned long>, new S2<unsigned long> };
 		for(size_t j=0; j<COUNT(tests); j++) {
 			for(size_t i=0; i<COUNT(poly); i++) {
-				printf("%016lX - %016lX\n", tests[j], poly[i]->algorithm(tests[j]));
+				printf(format, tests[j], poly[i]->algorithm(tests[j]));
 			}
 		}
 	}
