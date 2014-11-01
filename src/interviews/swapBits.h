@@ -5,8 +5,8 @@
  *      Author: aldgoff
  */
 
-#ifndef SWAP_H_
-#define SWAP_H_
+#ifndef SWAP_BITS_H_
+#define SWAP_BITS_H_
 
 
 #include <cstdio>
@@ -15,7 +15,7 @@ using namespace std;
 
 #include "../EPI.h"
 
-namespace swap_ip {
+namespace swap_bits {
 
 class Strategy {
 public:
@@ -24,11 +24,11 @@ public:
 };
 class S1 : public Strategy {
 public:
-	void algorithm() { cout << "Strategy 1 of new interview problem.\n"; }
+	void algorithm() { cout << "Strategy 1 of swap bits problem.\n"; }
 };
 class S2 : public Strategy {
 public:
-	void algorithm() { cout << "Strategy 2 of new interview problem.\n"; }
+	void algorithm() { cout << "Strategy 2 of swap bits problem.\n"; }
 };
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
@@ -44,15 +44,15 @@ void demo() {	// Run through 2D matrix: test cases versus strategies.
 
 }
 
-class swap : public EPI {
+class swapBits : public EPI {
 public:
-	swap() : EPI("swap") {}
+	swapBits() : EPI("swapBits") {}
 public:
 	void run(int i) {
 		cout << "Interview problem " << i << ": " << name << ".\n";
-		swap_ip::demo();
+		swap_bits::demo();
 	}
 };
 
 
-#endif /* SWAP_H_ */
+#endif /* SWAP_BITS_H_ */
