@@ -40,7 +40,6 @@ public:
 			cout << "Fill byte lookup table for first time.\n";
 			for(int i=0; i<256; i++) {
 				table[i] = reverseByte(i);
-//				printf("%02X = %02X\n", i, table[i]);
 			}
 		}
 	}
