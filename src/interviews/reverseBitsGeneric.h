@@ -123,8 +123,6 @@ public:
 		return lookup[(unsigned char)x];
 	}
 };
-#ifdef debug
-#endif
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
 	{
