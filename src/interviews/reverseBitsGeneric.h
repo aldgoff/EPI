@@ -74,7 +74,6 @@ public:
 public:
 	virtual ~Strategy() {}
 	virtual T algorithm(const T& arg) {
-//		cout << arg << endl;
 		return arg;
 	}
 };
