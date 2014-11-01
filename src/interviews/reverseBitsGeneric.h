@@ -40,7 +40,6 @@ public:
 			cout << "Fill byte lookup table for first time.\n";
 			for(int i=0; i<256; i++) {
 				table[i] = reverseByte(i);
-//				printf("%02X = %02X\n", i, table[i]);
 			}
 		}
 	}
@@ -67,14 +66,12 @@ public:
 			cout << "Fill byte lookup table for first time.\n";
 			for(int i=0; i<256; i++) {
 				lookup[i] = reverseByte(i);
-//				printf("%02X = %02X\n", i, table[i]);
 			}
 		}
 	}
 public:
 	virtual ~Strategy() {}
 	virtual T algorithm(const T& arg) {
-//		cout << arg << endl;
 		return arg;
 	}
 };
@@ -123,8 +120,6 @@ public:
 		return lookup[(unsigned char)x];
 	}
 };
-#ifdef debug
-#endif
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
 	{
