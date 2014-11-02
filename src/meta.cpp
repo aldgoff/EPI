@@ -17,10 +17,10 @@ using namespace std;
 
 void meta(const string& arg) {
 	EPI* routines[] = {
-		new reverseBits,
-		new reverseBitsGeneric,
 		new parity,
 		new swapBits,
+		new reverseBits,
+		new reverseBitsGeneric,
 		new interviewProblemN,
 		// Seam point - so program can respond to arg.
 	};
