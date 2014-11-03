@@ -1,70 +1,70 @@
 /*
  * Project: EPI (Elements of Programming Interviews).
- * File:	problemInterview.h
+ * File:	doors.h
  *
  *  Created on: Nov 3, 2014
  *      Author: aldgoff
  *
  * Description:
- *
+ * Every ith person toggles every ith door (initially closed). Is door n open?
  */
 
-#ifndef INTERVIEWPROBLEMN_H_
-#define INTERVIEWPROBLEMN_H_
+#ifndef DOORS_H_
+#define DOORS_H_
 
 
 #include <cstdio>
+#include <cmath>
 #include <iostream>
 using namespace std;
 
 #include "../EPI.h"
 
-namespace interview_problem_N {
+namespace doors_open {
 
 class Strategy {
 public:
 	virtual ~Strategy() {}
-	virtual void algorithm() {
-		return ;
+	virtual bool algorithm(int door) {
+		return false;
 	}
 };
 class S1 : public Strategy {
 public:
-	void algorithm() {
-		cout << "Strategy 1 of new interview problem.\n";
-		return ;
+	bool algorithm(int door) {
+		return floor(sqrt(door)) * floor(sqrt(door)) == door;
 	}
 };
 class S2 : public Strategy {
 public:
-	void algorithm() {
-		cout << "Strategy 2 of new interview problem.\n";
-		return ;
+	bool algorithm(int door) {
+		int sqrtFloor = floor(sqrt(door));
+		return sqrtFloor*sqrtFloor == door;
 	}
 };
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.
-	unsigned tests[] = { 1, 2 };
+	unsigned tests[] = { 4, 5,6,7,8, 9, 10,11 };
 	Strategy* poly[] = { new S1, new S2 };
 	for(size_t j=0; j<COUNT(tests); j++) {
 		cout << "\nData " << tests[j] << endl;
 		for(size_t i=0; i<COUNT(poly); i++) {
-			poly[i]->algorithm();
+			cout << poly[i]->algorithm(tests[j]) << endl;
 		}
 	}
 }
 
 }
 
-class interviewProblemN : public EPI {
+class doors : public EPI {
 public:
-	interviewProblemN() : EPI("interviewProblemN") {}
+	doors() : EPI("doors") {}
 public:
 	void run(int i) {
 		cout << "Interview problem " << i << ": " << name << ".\n";
-		interview_problem_N::demo();
+		doors_open::demo();
 	}
 };
 
 
-#endif /* INTERVIEWPROBLEMN_H_ */
+#endif /* DOORS_H_ */
