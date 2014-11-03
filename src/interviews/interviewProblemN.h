@@ -1,8 +1,12 @@
 /*
- * interviewProblemN.h
+ * Project: EPI (Elements of Programming Interviews).
+ * File:	problemInterview.h
  *
- *  Created on: Oct 24, 2014
+ *  Created on: Nov 3, 2014
  *      Author: aldgoff
+ *
+ * Description:
+ *
  */
 
 #ifndef INTERVIEWPROBLEMN_H_
@@ -20,15 +24,23 @@ namespace interview_problem_N {
 class Strategy {
 public:
 	virtual ~Strategy() {}
-	virtual void algorithm() {}
+	virtual void algorithm() {
+		return ;
+	}
 };
 class S1 : public Strategy {
 public:
-	void algorithm() { cout << "Strategy 1 of new interview problem.\n"; }
+	void algorithm() {
+		cout << "Strategy 1 of new interview problem.\n";
+		return ;
+	}
 };
 class S2 : public Strategy {
 public:
-	void algorithm() { cout << "Strategy 2 of new interview problem.\n"; }
+	void algorithm() {
+		cout << "Strategy 2 of new interview problem.\n";
+		return ;
+	}
 };
 
 void demo() {	// Run through 2D matrix: test cases versus strategies.

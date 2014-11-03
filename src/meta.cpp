@@ -13,6 +13,7 @@ using namespace std;
 #include "interviews/parity.h"
 #include "interviews/swapBits.h"
 #include "interviews/palindromeInteger.h"
+#include "interviews/randomNumbers.h"
 #include "interviews/interviewProblemN.h"
 // Seam point - so program knows of the interview classes.
 
@@ -23,6 +24,7 @@ void meta(const string& arg) {
 		new reverseBits,
 		new reverseBitsGeneric,
 		new palindromeInteger,
+		new randomNumbers,
 		new interviewProblemN,
 		// Seam point - so program can respond to arg.
 	};

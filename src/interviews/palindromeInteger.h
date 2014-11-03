@@ -1,5 +1,5 @@
 /*
- * Project: EPI (Elements of Programming Interviews.
+ * Project: EPI (Elements of Programming Interviews).
  * File:	palindromeInteger.h
  *
  *  Created on: Nov 3, 2014

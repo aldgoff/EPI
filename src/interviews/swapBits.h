@@ -1,5 +1,5 @@
 /*
- * Project: EPI (Elements of Programming Interviews.
+ * Project: EPI (Elements of Programming Interviews).
  * File:	swap.h
  *
  *  Created on: Oct 24, 2014
