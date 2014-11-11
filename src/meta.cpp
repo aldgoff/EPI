@@ -16,6 +16,7 @@ using namespace std;
 #include "interviews/randomNumbers.h"
 #include "interviews/doors.h"
 #include "interviews/dutchFlag.h"
+#include "interviews/deleteKeyFromArray.h"
 #include "interviews/interviewProblemN.h"
 // Seam point - so program knows of the interview classes.
 
@@ -29,6 +30,7 @@ void meta(const string& arg) {
 		new randomNumbers,
 		new doors,
 		new dutchFlag,
+		new deleteKeyFromArray,
 		new interviewProblemN,
 		// Seam point - so program can respond to arg.
 	};

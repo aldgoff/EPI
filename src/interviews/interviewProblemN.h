@@ -1,6 +1,6 @@
 /*
  * Project: EPI (Elements of Programming Interviews).
- * File:	problemInterview.h
+ * File:	interviewProblemN.h
  *
  *  Created on: Nov 3, 2014
  *      Author: aldgoff
@@ -31,14 +31,14 @@ public:
 class S1 : public Strategy {
 public:
 	void algorithm() {
-		cout << "Strategy 1 of new interview problem.\n";
+		cout << "Strategy 1 of interview_problem_N interview problem.\n";
 		return ;
 	}
 };
 class S2 : public Strategy {
 public:
 	void algorithm() {
-		cout << "Strategy 2 of new interview problem.\n";
+		cout << "Strategy 2 of interview_problem_N interview problem.\n";
 		return ;
 	}
 };
