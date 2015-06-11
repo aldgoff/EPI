@@ -18,6 +18,7 @@ using namespace std;
 #include "interviews/dutchFlag.h"
 #include "interviews/deleteKeyFromArray.h"
 #include "interviews/firstMissing.h"
+#include "interviews/stringIntegers.h"
 #include "interviews/interviewProblemN.h"
 // Seam point - so program knows of the interview classes.
 
@@ -33,6 +34,7 @@ void meta(const string& arg) {
 		new dutchFlag,
 		new deleteKeyFromArray,
 		new firstMissing,
+		new stringIntegers,
 		new interviewProblemN,
 		// Seam point - so program can respond to arg.
 	};
